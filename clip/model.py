@@ -453,3 +453,17 @@ def build_model(state_dict: dict):
     convert_weights(model)
     model.load_state_dict(state_dict)
     return model.eval()
+
+
+def build_vision_transformer(image_resolution, patch_size, width, layers, embed_dim):
+    heads = width // 64
+    visual = VisionTransformer(
+        input_resolution=image_resolution,
+        patch_size=patch_size,
+        width=width,
+        layers=layers,
+        heads=heads,
+        output_dim=embed_dim
+    )
+    convert_weights(visual)
+    return visual
